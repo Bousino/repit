@@ -1,0 +1,42 @@
+/*
+You're given strings J representing the types of stones that are jewels, and S representing the stones you have.  Each character in S is a type of stone you have.  You want to know how many of the stones you have are also jewels.
+
+The letters in J are guaranteed distinct, and all characters in J and S are letters. Letters are case sensitive, so "a" is considered a different type of stone from "A".
+*/
+--------------------------------------------------------------------
+class Solution {
+    public int numJewelsInStones(String J, String S) {
+        int q = 0;
+        for (int i = 0; i < S.length(); i++) {
+            for(int z=0;z<J.length();z++)
+                if(S.toCharArray()[i]==J.toCharArray()[z])q++;
+               
+        }
+        return q;
+    }
+}
+
+--------------------------------------------------------------------
+class Solution {
+    public int numJewelsInStones(String J, String S) {
+
+         int a[] = new int[100];
+         int q = 0;
+        
+        for(int i=0;i<S.length();i++)
+            a[S.charAt(i) - 65]++;
+        
+        for(int i=0;i<J.length();i++)
+            q += a[J.charAt(i) - 65]; 
+        
+        return q;           
+    }
+}
+--------------------------------------------------------------------
+
+  public int numJewelsInStones(String J, String S) {
+        long p = 0, sum = 0; 
+        for (int i = 0; i < J.length(); p |= (1L << J.charAt(i) - 65), i++);
+        for (int i = 0; i < S.length(); sum += (p & 1L << S.charAt(i) - 65) > 0 ? 1 : 0, i++);
+        return (int) sum;
+    }
